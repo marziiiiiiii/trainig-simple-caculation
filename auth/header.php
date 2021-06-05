@@ -1,48 +1,63 @@
 <?php
-// $sign = $_POST['sign'];
 
-// if ($sign == "sign in"){
-// 	header('Location: signin.php');
+$actual_link = "$_SERVER[REQUEST_URI]";
+// echo $actual_link;
 
-// }else{
-// 	header('Location: signup.php');
 
-// }
 
 if (isset($_COOKIE["signedin"]) && $_COOKIE["signedin"] == '1') {
 
-	echo "<div class='sign'>
+	echo "<div class='header'>
 	<a href='signout.php'>SignOut</a>
 	<h4>Welcome " . $_COOKIE["user"] . "</h4>
 	</div>";
 } else {
-	echo "<div class='sign'>
-	<a  href='../auth/signin.php'>SignIn</a> 
-	<a href='../auth/signup.php'>SignUp</a>
-	<a href='../auth/home.php'>Home</a>
-	</div>";
+	if ($actual_link == '/PHP/training/auth/signin.php') {
+		echo "<div class='header'>
+		<a class='current' href='../auth/signin.php'>SignIn</a> 
+		<a href='../auth/signup.php'>SignUp</a>
+		<a href='../auth/home.php'>Home</a>
+		</div>";
+	} else if ($actual_link == '/PHP/training/auth/signup.php') {
+		echo "<div class='header'>
+		<a href='../auth/signin.php'>SignIn</a> 
+		<a class='current' href='../auth/signup.php'>SignUp</a>
+		<a href='../auth/home.php'>Home</a>
+		</div>";
+	} else {
+
+		echo "<div class='header'>
+		<a  href='../auth/signin.php'>SignIn</a> 
+		<a href='../auth/signup.php'>SignUp</a>
+		<a class='current' href='../auth/home.php'>Home</a>
+		</div>";
+	}
 }
 ?>
 <html>
 
 <style>
-	.sign {
+	.header {
 		display: flex;
 		justify-content: space-around;
 		align-items: center;
-		background-color: palegreen;
+		background-color: #551A8B;
 		width: 100%;
-		height: 80px;
+		height: 100px;
 		font-size: 30px;
 		direction: rtl;
+margin-bottom: 50px;
 
 	}
 
+	.current{
+		color: #00D1BB;
+	}
 
 	a:link,
 	a:visited,
 	a:active {
-		color: palegreen;
+		/* color: palegreen; */
 		text-decoration: none;
 		font-weight: bold;
 
@@ -52,13 +67,13 @@ if (isset($_COOKIE["signedin"]) && $_COOKIE["signedin"] == '1') {
 	}
 
 	a:hover {
-		color: hotpink;
+		color: #00D1BB;
 		text-decoration: none;
 	}
 
 
 	h4 {
-		color: hotpink;
+		color: white;
 	}
 </style>
 

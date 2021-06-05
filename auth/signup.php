@@ -57,19 +57,51 @@
 		}
 	}
 	?>
+	<div class='main'>
+		<form action="signUp.php" method="POST">
+			<br>
+			<div class='info'>Usrename: <input type="text" name="user">
+				<br>Password: <input type="password" name="pass">
+			
 
-	<form action="signUp.php" method="POST">
-		<br>Usrename: <input type="text" name="user">
-		<br>Password: <input type="password" name="pass">
-
-		<br> <input type="radio" name="as" value="teacher">
-		<label for="teacher">Teacher</label><br>
-		<br> <input type="radio" name="as" value="student">
-		<label for="student">Student</label><br>
-
-		<br><input type="submit" value="Sign Up">
-	</form>
-
+			<br> <input type="radio" name="as" value="teacher">
+			<label for="teacher">Teacher</label><br>
+			<br> <input type="radio" name="as" value="student">
+			<label for="student">Student</label><br>
+			</div>
+			<br><input class="btn" type="submit" value="Sign Up">
+		</form>
+	</div>
 </body>
+<style>
+	.btn {
+		background-color: #00D1BB;
+		color: white;
+		border: none;
+		border-radius: 15px;
+		padding: 13px;
+		cursor: pointer;
+		font-weight: bolder;
+		font-size: 23px;
+	}
+
+	input {
+		margin: 15px;
+		font-size: 17px;
+	}
+
+	.info {
+		color: #551A8B;
+		font-size: 18px;
+		font-weight: bold;
+	}
+
+	.main {
+
+		display: flex;
+		justify-content: space-around;
+		align-items: center;
+	}
+</style>
 
 </html>

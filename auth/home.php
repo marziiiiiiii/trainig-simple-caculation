@@ -10,15 +10,14 @@
 
 	<?php
 	include("header.php");
-
 	if (isset($_COOKIE["signedin"]) && $_COOKIE["signedin"] == '1') {
 		if ($_COOKIE["as"] == 'Sign In as Teacher') {
 			echo "<h1>teacher</h1>";
-			echo $_COOKIE["as"];
 		} else {
 			echo "<div class='student-home'>
-			<h1>you are a level </h1>
-			<h1>start test</h1>
+			<h1>student</h1>
+			<h2>level felan</h2>
+			<button>start test</button>
 			</div>";
 		}
 		// echo "<a href='signout.php'>SignOut</a>";
@@ -41,7 +40,7 @@
 
 	}
 	h1{
-		color: hotpink;
+		color: #00D1BB;
 	}
 </style>
 

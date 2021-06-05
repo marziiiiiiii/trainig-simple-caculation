@@ -13,10 +13,11 @@
 
 	<?php
 
+include("header.php");
 
 
 	if (isset($_COOKIE["signedin"]) && $_COOKIE["signedin"] == '1')
-		header('Location: welcome.php');
+		header('Location: home.php');
 
 	if (isset($_POST['user']) && isset($_POST['pass'])) {
 		$user = $_POST['user'];
@@ -52,8 +53,9 @@
 
 				$expire = time() + 60 * 60 * 24 * 7;
 				setcookie("user", $user); //, $expire);
+				setcookie("as", $as); //, $expire);
 				setcookie("signedin", "1"); //, $expire);
-				header('Location: welcome.php');
+				header('Location: home.php');
 
 				echo "Cookies have set.";
 			} else {
@@ -72,9 +74,6 @@
 		<br><input type="submit" name="as" value="Sign In as Student">
 	</form>
 
-	<!-- <form action="welcome.php" method="POST">
-		<input type="submit" name="" value="">
-	</form> -->
 
 
 </body>

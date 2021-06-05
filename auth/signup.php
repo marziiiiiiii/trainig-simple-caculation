@@ -12,6 +12,9 @@
 <body>
 
 	<?php
+	include("header.php");
+
+
 	if (isset($_POST['user']) && isset($_POST['pass'])) {
 		$user = $_POST['user'];
 		$pass = $_POST['pass'];
@@ -38,12 +41,12 @@
 				echo "New record created successfully";
 				$expire = time() + 60 * 60 * 24 * 7;
 				setcookie("user", $user); //, $expire);
+				setcookie("as", $as); //, $expire);
 				setcookie("signedin", "1"); //, $expire);
-				// header('Location: ../home/home.php');
 
 				echo "Cookies have set.";
 
-				header('Location: ../home/home.php');
+				header('Location: home.php');
 			} else {
 				echo "Error: " . $sql . "<br>" . mysqli_error($con);
 			}
@@ -66,7 +69,6 @@
 
 		<br><input type="submit" value="Sign Up">
 	</form>
-
 
 </body>
 

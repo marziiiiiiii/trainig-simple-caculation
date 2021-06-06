@@ -38,7 +38,7 @@
 
 	if ($lvl == '1') {
 		echo "level 1 question : </br>";
-		$id = rand(1, 6);
+		$id = rand(1, 8);
 		// random obj pic
 		$sql = "SELECT * FROM objpictures WHERE OPid = $id";
 		$result = $con->query($sql);
@@ -47,8 +47,8 @@
 			printf("Error: %s\n", mysqli_error($con));
 			exit();
 		} else {
-
-			for ($i = 1; $i <= rand(1, 10); $i++) {
+			$answer = rand(1, 10);
+			for ($i = 1; $i <= $answer; $i++) {
 				echo '<img class="fruite" src="data:image/jpeg;base64,' . base64_encode($row['objPic']) . '"/>';
 			}
 		}
@@ -59,6 +59,7 @@
 
 
 	?>
+	<br><br>
 	<div class='main'>
 		<div class='info'>how many fruits do you see?<br>
 			<br> <input type="radio" name="option" value="1">

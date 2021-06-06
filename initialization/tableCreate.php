@@ -4,6 +4,7 @@ if (!$con) {
     die('Could not connect: ' . mysqli_connect_error());
 }
 
+//---------------------------------------------
 
 // $sql = "CREATE TABLE Teachers
 // (
@@ -27,9 +28,7 @@ if (!$con) {
 // wrongs varchar(15)
 // )";
 
-
 //---------------------------------------------
-
 
 // $sql = "CREATE TABLE Questions
 // (
@@ -45,7 +44,6 @@ if (!$con) {
 
 //---------------------------------------------
 
-
 $sql = "CREATE TABLE objPictures
 (
 OPid int NOT NULL AUTO_INCREMENT , 
@@ -53,7 +51,10 @@ PRIMARY KEY(OPid),
 objPic BLOB 
 )";
 
+////bayad dar phpmyadmin be soorat dasti ax haro insert kard
+////ax ha dar folder "picture for insert in db"
 
+//---------------------------------------------
 
 if (mysqli_query($con, $sql)) {
     echo "Table created";

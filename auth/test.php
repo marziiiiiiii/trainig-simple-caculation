@@ -16,14 +16,12 @@
 	include("header.php");
 	$con = mysqli_connect("localhost", "root", "", "training");
 
-	function generateLvl1Q()
-	{
-		//save question
 
-		// view
+	//save question
 
-		// check answer
-	}
+	//correct options
+	// check answer
+
 
 
 
@@ -40,7 +38,7 @@
 
 	if ($lvl == '1') {
 		echo "level 1 question : </br>";
-		$id = 1;
+		$id = rand(1, 4);
 		// random obj pic
 		$sql = "SELECT * FROM objpictures WHERE OPid = $id";
 		$result = $con->query($sql);
@@ -48,10 +46,11 @@
 		if (!$row) {
 			printf("Error: %s\n", mysqli_error($con));
 			exit();
-		}else{
-			echo '<img src="data:image/jpeg;base64,' . base64_encode($row['objPic']) . '"/>';
-			echo '<img src="data:image/jpeg;base64,' . base64_encode($row['objPic']) . '"/>';
+		} else {
 
+			for ($i = 1; $i <= rand(1, 10); $i++) {
+				echo '<img class="fruite" src="data:image/jpeg;base64,' . base64_encode($row['objPic']) . '"/>';
+			}
 		}
 	} else {
 		echo "you are not level 1 student ";
@@ -61,14 +60,18 @@
 
 	?>
 	<div class='main'>
-		<!-- <form action="signIn.php" method="POST">
-			<br>
-			<div class='info'>Usrename: <input type="text" name="user">
-				<br>Password: <input type="password" name="pass">
-			</div>
-			<br><input type="submit" class="btn" name="as" value="Sign In as Teacher">
-			<br><input type="submit" class="btn" name="as" value="Sign In as Student">
-		</form> -->
+		<div class='info'>how many fruits do you see?<br>
+			<br> <input type="radio" name="option" value="1">
+			<label>1</label><br>
+			<br> <input type="radio" name="option" value="2">
+			<label>2</label><br>
+			<br> <input type="radio" name="option" value="3">
+			<label>3</label><br>
+			<br> <input type="radio" name="option" value="4">
+			<label>4</label><br>
+			<br><input type="submit" class="btn" name="answer" value="submit">
+
+		</div>
 
 	</div>
 
@@ -76,17 +79,18 @@
 
 <style>
 	.btn {
-		background-color: #00D1BB;
-		color: white;
+		color: #00D1BB;
+		background-color: white;
 		border: none;
 		border-radius: 15px;
-		padding: 13px;
+		padding: 8px;
 		cursor: pointer;
 		font-weight: bolder;
-		font-size: 23px;
+		font-size: 17px;
 	}
-	.btn:hover{
-		background-color: #551A8B;
+
+	.btn:hover {
+		color: #551A8B;
 	}
 
 	input {
@@ -95,16 +99,23 @@
 	}
 
 	.info {
+		background-color: #00D1BB;
+		padding: 30px;
+		border-radius: 20px;
 		color: #551A8B;
 		font-size: 18px;
 		font-weight: bold;
 	}
 
 	.main {
-
 		display: flex;
 		justify-content: space-around;
 		align-items: center;
+	}
+
+	.fruite {
+		height: 180px;
+		width: 180px;
 	}
 </style>
 

@@ -38,7 +38,7 @@
 
 	if ($lvl == '1') {
 		echo "level 1 question : </br>";
-		$id = rand(1, 4);
+		$id = rand(1, 6);
 		// random obj pic
 		$sql = "SELECT * FROM objpictures WHERE OPid = $id";
 		$result = $con->query($sql);

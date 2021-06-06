@@ -13,7 +13,7 @@ if (!$con) {
 // confirmed boolean 
 // )";
 
-
+//---------------------------------------------
 
 // $sql = "CREATE TABLE Students
 // (
@@ -28,21 +28,36 @@ if (!$con) {
 // )";
 
 
+//---------------------------------------------
 
 
-$sql = "CREATE TABLE Questions
+// $sql = "CREATE TABLE Questions
+// (
+// Qid int NOT NULL AUTO_INCREMENT , 
+// PRIMARY KEY(Qid),
+// qustion varchar(15) ,
+// objPic BLOB ,
+// objsPic BLOB ,
+// oprand varchar(5),
+// anwser int,
+// lvl int 
+// )";
+
+//---------------------------------------------
+
+
+$sql = "CREATE TABLE objPictures
 (
-Qid int NOT NULL AUTO_INCREMENT , 
-PRIMARY KEY(Qid),
-qustion varchar(15) ,
-objPic BLOB ,
-objsPic BLOB ,
-oprand varchar(5),
-anwser int,
-lvl int 
+OPid int NOT NULL AUTO_INCREMENT , 
+PRIMARY KEY(OPid),
+objPic BLOB 
 )";
 
 
-mysqli_query($con, $sql);
 
-
+if (mysqli_query($con, $sql)) {
+    echo "Table created";
+} else {
+    echo "Error creating table: " . mysqli_error($con);
+}
+mysqli_close($con);

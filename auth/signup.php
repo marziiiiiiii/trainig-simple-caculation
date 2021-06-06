@@ -62,12 +62,10 @@
 			<br>
 			<div class='info'>Usrename: <input type="text" name="user">
 				<br>Password: <input type="password" name="pass">
-			
-
-			<br> <input type="radio" name="as" value="teacher">
-			<label for="teacher">Teacher</label><br>
-			<br> <input type="radio" name="as" value="student">
-			<label for="student">Student</label><br>
+				<br> <input type="radio" name="as" value="teacher">
+				<label for="teacher">Teacher</label><br>
+				<br> <input type="radio" name="as" value="student">
+				<label for="student">Student</label><br>
 			</div>
 			<br><input class="btn" type="submit" value="Sign Up">
 		</form>
@@ -83,6 +81,9 @@
 		cursor: pointer;
 		font-weight: bolder;
 		font-size: 23px;
+	}
+	.btn:hover{
+		background-color: #551A8B;
 	}
 
 	input {

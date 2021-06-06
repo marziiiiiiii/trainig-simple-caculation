@@ -68,8 +68,10 @@
 	?>
 	<div class='main'>
 		<form action="signIn.php" method="POST">
-			<br><div class='info'>Usrename: <input type="text"  name="user">
-			<br>Password: <input type="password" name="pass"></div>
+			<br>
+			<div class='info'>Usrename: <input type="text" name="user">
+				<br>Password: <input type="password" name="pass">
+			</div>
 			<br><input type="submit" class="btn" name="as" value="Sign In as Teacher">
 			<br><input type="submit" class="btn" name="as" value="Sign In as Student">
 		</form>
@@ -90,6 +92,9 @@
 		font-size: 23px;
 	}
 
+	.btn:hover{
+		background-color: #551A8B;
+	}
 	input {
 		margin: 15px;
 		font-size: 17px;

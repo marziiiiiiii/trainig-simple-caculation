@@ -1,6 +1,3 @@
-<?php
-//session_start(); 
-?>
 <html>
 
 <head>
@@ -10,39 +7,13 @@
 </head>
 
 <body>
-
+	<!-- -----------------------------------------------------------------------------------PHP -->
 	<?php
 
 	include("header.php");
 	$con = mysqli_connect("localhost", "root", "", "training");
 
-
-
-
-
-	if (isset($_POST['op'])) {
-		$op = $_POST['op'];
-		$hiddenAnswer = $_POST['hiddenAnswer'];
-		if (!empty($op) && $op == $hiddenAnswer) {
-			echo "<div class='res main'>bravo :) </div>";
-			// todo add 1 correct to students db
-
-			// $sql = "UPDATE Students SET lastname='Doe' WHERE user=$user";
-
-			// if ($conn->query($sql) === TRUE) {
-			//   echo "Record updated successfully";
-			// } else {
-			//   echo "Error updating record: " . $conn->error;
-			// }
-
-
-		} else {
-			echo "<div class='res main'>pay attention :( </div> ";
-			// todo add 1 wrong to students db
-		}
-	} else {
-		echo "<div class='res main'>choose the answer </div>";
-	}
+	// ----------------------------------- user information -----------------------------------
 
 	$user = $_COOKIE["user"];
 	$result = mysqli_query($con, "SELECT * FROM Students WHERE user = '" . $user . "' ");
@@ -51,15 +22,52 @@
 	while ($row = mysqli_fetch_array($result)) {
 
 		$lvl = $row['lvl'];
-		echo "<div class='info main'> daily corrects : " . $row['dailyCorrects']
-		. "<br/> total corrects : " . $row['corrects']
-		. "<br/> total wrongs : " . $row['wrongs']
-		. "<br/> last access : " . $row['lastAccess'] ."</div>";
+		$dailyCorrects = $row['dailyCorrects'];
+		$corrects = $row['corrects'];
+		$wrongs = $row['wrongs'];
+		$lastAccess = $row['lastAccess'];
+	}
+	// ----------------------------------- check answer -----------------------------------
+
+	if (isset($_POST['op'])) {
+		$op = $_POST['op'];
+		$hiddenAnswer = $_POST['hiddenAnswer'];
+		if (!empty($op) && $op == $hiddenAnswer) {
+			echo "<div class='res main'>bravo :) </div>";
+
+			// ------------------- add 1 correct to students db -------------------
+			$dailyCorrects = $dailyCorrects+1;
+			$corrects = $corrects+1;
+			$sql = "UPDATE Students SET dailyCorrects='" . $dailyCorrects . "' WHERE user='" . $user . "'";
+			$con->query($sql);
+			$sql = "UPDATE Students SET corrects='" . $corrects . "' WHERE user='" . $user . "'";
+
+			
+		} else {
+			echo "<div class='res main'>pay attention :( </div> ";
+
+			// ------------------- add 1 wrong to students db -------------------
+			$wrongs = $wrongs+1;
+			$sql = "UPDATE Students SET wrongs='" . $wrongs . "' WHERE user='" . $user . "'";
+
+		}
+		$con->query($sql);
+
+		echo "<div class='info main'> daily corrects : " . $dailyCorrects
+		. " <br/> total corrects : " . $corrects
+		. " <br/> total wrongs : " . $wrongs . "</div>";
+		echo "<div class='info main'><br/> last access : " . $lastAccess . "</div>";
+	} else {
+		echo "<div class='res main'>choose the answer </div>";
 	}
 
+	// ----------------------------------- new question -----------------------------------
 
 	if ($lvl == '1') {
-		echo "<div class='title '> level 1 question (1 to 10) :</div> </div>";
+
+		// ------------------- random pic -------------------
+
+		echo "<div class='title '> new question (level 1 -> 1 to 10) </div> </div>";
 		$id = rand(1, 8);
 		$sql = "SELECT * FROM objpictures WHERE OPid = $id";
 		$result = $con->query($sql);
@@ -68,10 +76,16 @@
 			printf("Error: %s\n", mysqli_error($con));
 			exit();
 		} else {
+
+			// ------------------- random number 1 to 10 -------------------
+
 			$answer = rand(1, 10);
 			for ($i = 1; $i <= $answer; $i++) {
 				echo '<img class="fruite" src="data:image/jpeg;base64,' . base64_encode($row['objPic']) . '"/>';
 			}
+
+			// ------------------- random position -------------------
+
 			$randomPos = rand(0, 3);
 			$option[$randomPos] = $answer;
 			for ($i = 0; $i < 4; $i++) {
@@ -84,6 +98,8 @@
 				}
 				$option[$i] = $randNum;
 			}
+			// ------------------- save question in db -------------------
+
 			// todo save question
 
 		}
@@ -91,9 +107,9 @@
 		echo "you are not level 1 student ";
 		echo $lvl;
 	}
-
-
 	?>
+
+	<!-- -----------------------------------------------------------------------------------HTML -->
 	<br><br>
 	<div class='main'>
 		<div class='question'>how many fruits do you see?<br>
@@ -113,14 +129,13 @@
 	</div>
 
 </body>
-
+<!-- -----------------------------------------------------------------------------------CSS -->
 <style>
 	.btn {
 		background-color: #00D1BB;
 		color: #00D1BB;
 		border: none;
 		border-radius: 0px 90px 90px 0px;
-		/* padding: 8px; */
 		cursor: pointer;
 		font-weight: bolder;
 		font-size: 17px;
@@ -132,11 +147,13 @@
 		background-color: #551A8B;
 		color: #551A8B;
 	}
-.info{
-	background-color: #00D1BB;
-	padding: 20px;
-	font-size: 20px;
-}
+
+	.info {
+		background-color: #00D1BB;
+		padding: 20px;
+		font-size: 20px;
+	}
+
 	.res {
 		color: #551A8B;
 		padding: 10px;

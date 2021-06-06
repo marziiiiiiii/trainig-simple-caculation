@@ -51,13 +51,23 @@
 			if ($user == $check_user && $pass == $check_pass) {
 				echo "Matches.";
 
+
+				if ($as == "Sign In as Teacher") {
+					$sql = "UPDATE Teachers SET lastAccess=now() WHERE user='" . $user . "'";
+				} else {
+					$sql = "UPDATE Students SET lastAccess=now() WHERE user='" . $user . "'";
+				}
+
+				$con->query($sql);
+
 				$expire = time() + 60 * 60 * 24 * 7;
 				setcookie("user", $user); //, $expire);
 				setcookie("as", $as); //, $expire);
 				setcookie("signedin", "1"); //, $expire);
+
 				header('Location: home.php');
 
-				echo "Cookies have set.";
+				$con->close();
 			} else {
 				echo "No match found. Try again.";
 			}
@@ -92,9 +102,10 @@
 		font-size: 23px;
 	}
 
-	.btn:hover{
+	.btn:hover {
 		background-color: #551A8B;
 	}
+
 	input {
 		margin: 15px;
 		font-size: 17px;

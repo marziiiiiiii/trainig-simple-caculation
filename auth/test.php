@@ -17,36 +17,50 @@
 	$con = mysqli_connect("localhost", "root", "", "training");
 
 
-	//save question
 
-	//correct options
-	// check answer
 
 
 	if (isset($_POST['op'])) {
 		$op = $_POST['op'];
-		echo "op: " . $op . "<br>";
-		// echo "ans: " . $answer . "<br>";
-		echo "This is ";
+		$hiddenAnswer = $_POST['hiddenAnswer'];
+		if (!empty($op) && $op == $hiddenAnswer) {
+			echo "<div class='res main'>bravo :) </div>";
+			// todo add 1 correct to students db
+
+			// $sql = "UPDATE Students SET lastname='Doe' WHERE user=$user";
+
+			// if ($conn->query($sql) === TRUE) {
+			//   echo "Record updated successfully";
+			// } else {
+			//   echo "Error updating record: " . $conn->error;
+			// }
+
+
+		} else {
+			echo "<div class='res main'>pay attention :( </div> ";
+			// todo add 1 wrong to students db
+		}
 	} else {
-		echo "not";
+		echo "<div class='res main'>choose the answer </div>";
 	}
 
 	$user = $_COOKIE["user"];
 	$result = mysqli_query($con, "SELECT * FROM Students WHERE user = '" . $user . "' ");
 
 	$lvl = 1;
-
 	while ($row = mysqli_fetch_array($result)) {
 
 		$lvl = $row['lvl'];
+		echo "<div class='info main'> daily corrects : " . $row['dailyCorrects']
+		. "<br/> total corrects : " . $row['corrects']
+		. "<br/> total wrongs : " . $row['wrongs']
+		. "<br/> last access : " . $row['lastAccess'] ."</div>";
 	}
 
 
 	if ($lvl == '1') {
-		echo "<div class='title '> level 1 question (1 to 10) :</div> </br>";
+		echo "<div class='title '> level 1 question (1 to 10) :</div> </div>";
 		$id = rand(1, 8);
-		// random obj pic
 		$sql = "SELECT * FROM objpictures WHERE OPid = $id";
 		$result = $con->query($sql);
 		$row = mysqli_fetch_array($result);
@@ -70,14 +84,8 @@
 				}
 				$option[$i] = $randNum;
 			}
+			// todo save question
 
-			// -----
-			// if(isset($_POST['op0'])) {
-			// 	echo "This is Button1 that is selected";
-			// }else {
-			// 	echo "not op1";
-			// }
-			// include("header.php");
 		}
 	} else {
 		echo "you are not level 1 student ";
@@ -88,17 +96,17 @@
 	?>
 	<br><br>
 	<div class='main'>
-		<div class='info'>how many fruits do you see?<br>
+		<div class='question'>how many fruits do you see?<br>
 			<form action="test.php" method="post">
-				<br> <input id="op0" type="radio" name="op" value="<?php echo $option[0]; ?>" onclick="checkanswer(value, id)">
+				<br> <input type="radio" name="op" value="<?php echo $option[0]; ?>" onclick="checkanswer(value, id)">
 				<label><?php echo $option[0]; ?></label><br>
-				<br> <input id="op1" type="radio" name="op" value="<?php echo $option[1]; ?>">
+				<br> <input type="radio" name="op" value="<?php echo $option[1]; ?>">
 				<label><?php echo $option[1]; ?></label><br>
-				<br> <input id="op2" type="radio" name="op" value="<?php echo $option[2]; ?>">
+				<br> <input type="radio" name="op" value="<?php echo $option[2]; ?>">
 				<label><?php echo $option[2]; ?></label><br>
-				<br> <input id="op3" type="radio" name="op" value="<?php echo $option[3]; ?>">
+				<br> <input type="radio" name="op" value="<?php echo $option[3]; ?>">
 				<label><?php echo $option[3]; ?></label><br>
-				<br><input type="submit" class="btn" name="answer" value="<?php echo $option[$randomPos]; ?>">
+				<br><span class="nxt">next </span> <input type="submit" class="btn" name="hiddenAnswer" value="<?php echo $option[$randomPos]; ?>">
 			</form>
 		</div>
 
@@ -108,26 +116,48 @@
 
 <style>
 	.btn {
+		background-color: #00D1BB;
 		color: #00D1BB;
-		background-color: white;
 		border: none;
-		border-radius: 15px;
-		padding: 8px;
+		border-radius: 0px 90px 90px 0px;
+		/* padding: 8px; */
 		cursor: pointer;
 		font-weight: bolder;
 		font-size: 17px;
+		width: 35px;
+		height: 48px;
 	}
 
 	.btn:hover {
+		background-color: #551A8B;
 		color: #551A8B;
+	}
+.info{
+	background-color: #00D1BB;
+	padding: 20px;
+	font-size: 20px;
+}
+	.res {
+		color: #551A8B;
+		padding: 10px;
+		font-size: 30px;
+		font-weight: bold;
 	}
 
 	input {
-		margin: 15px;
+		/* margin: 15px; */
 		font-size: 17px;
 	}
 
-	.info {
+	.nxt {
+		border-radius: 90px 0px 0px 90px;
+		border: solid 3px #00D1BB;
+		width: 25px;
+		padding: 9px;
+		height: 50px;
+	}
+
+	.question {
 		border: solid 9px #00D1BB;
 		padding: 30px;
 		border-radius: 20px;
@@ -139,7 +169,7 @@
 
 	.title {
 
-		color: #00D1BB;
+		color: #551A8B;
 		font-size: 20px;
 		font-weight: bold;
 

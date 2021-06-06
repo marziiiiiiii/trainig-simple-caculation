@@ -10,6 +10,7 @@ if (isset($_COOKIE["signedin"]) && $_COOKIE["signedin"] == '1') {
 	echo "<div class='header'>
 	<a href='signout.php'>SignOut</a>
 	<h4>Welcome " . $_COOKIE["user"] . "</h4>
+	<a href='../auth/home.php'>Home</a>
 	</div>";
 } else {
 	if ($actual_link == '/PHP/training/auth/signin.php') {

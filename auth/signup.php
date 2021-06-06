@@ -34,7 +34,7 @@
 				VALUES ('" . $user . "', '" . $pass . "', '" . $confirmed . "')";
 			} else {
 				$sql = "INSERT INTO Students (user, pass, lvl, dailyCorrects, lastAccess, corrects, wrongs)
-				VALUES ('" . $user . "', '" . $pass . "' , '1', '0', STR_TO_DATE('15/01/2017 10:10:15','%d/%m/%Y %H:%i:%s'), '', '')";
+				VALUES ('" . $user . "', '" . $pass . "' , '1', '0', now(), '0', '0')";
 			}
 
 			if (mysqli_query($con, $sql)) {

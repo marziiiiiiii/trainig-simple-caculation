@@ -23,7 +23,14 @@
 	// check answer
 
 
-
+	if (isset($_POST['op'])) {
+		$op = $_POST['op'];
+		echo "op: " . $op . "<br>";
+		// echo "ans: " . $answer . "<br>";
+		echo "This is ";
+	} else {
+		echo "not";
+	}
 
 	$user = $_COOKIE["user"];
 	$result = mysqli_query($con, "SELECT * FROM Students WHERE user = '" . $user . "' ");
@@ -37,7 +44,7 @@
 
 
 	if ($lvl == '1') {
-		echo "level 1 question (1 to 10) : </br>";
+		echo "<div class='title '> level 1 question (1 to 10) :</div> </br>";
 		$id = rand(1, 8);
 		// random obj pic
 		$sql = "SELECT * FROM objpictures WHERE OPid = $id";
@@ -63,6 +70,14 @@
 				}
 				$option[$i] = $randNum;
 			}
+
+			// -----
+			// if(isset($_POST['op0'])) {
+			// 	echo "This is Button1 that is selected";
+			// }else {
+			// 	echo "not op1";
+			// }
+			// include("header.php");
 		}
 	} else {
 		echo "you are not level 1 student ";
@@ -74,16 +89,17 @@
 	<br><br>
 	<div class='main'>
 		<div class='info'>how many fruits do you see?<br>
-			<br> <input type="radio" name="option" value="<?php echo $option[0]; ?>" onclick="checkanswer(value, id)">
-			<label><?php echo $option[0]; ?></label><br>
-			<br> <input type="radio" name="option" value="<?php echo $option[1]; ?>">
-			<label><?php echo $option[1]; ?></label><br>
-			<br> <input type="radio" name="option" value="<?php echo $option[2]; ?>">
-			<label><?php echo $option[2]; ?></label><br>
-			<br> <input type="radio" name="option" value="<?php echo $option[3]; ?>">
-			<label><?php echo $option[3]; ?></label><br>
-			<!-- <br><input type="submit" class="btn" name="answer" value="submit"> -->
-
+			<form action="test.php" method="post">
+				<br> <input id="op0" type="radio" name="op" value="<?php echo $option[0]; ?>" onclick="checkanswer(value, id)">
+				<label><?php echo $option[0]; ?></label><br>
+				<br> <input id="op1" type="radio" name="op" value="<?php echo $option[1]; ?>">
+				<label><?php echo $option[1]; ?></label><br>
+				<br> <input id="op2" type="radio" name="op" value="<?php echo $option[2]; ?>">
+				<label><?php echo $option[2]; ?></label><br>
+				<br> <input id="op3" type="radio" name="op" value="<?php echo $option[3]; ?>">
+				<label><?php echo $option[3]; ?></label><br>
+				<br><input type="submit" class="btn" name="answer" value="<?php echo $option[$randomPos]; ?>">
+			</form>
 		</div>
 
 	</div>
@@ -112,12 +128,21 @@
 	}
 
 	.info {
-		background-color: #00D1BB;
+		border: solid 9px #00D1BB;
 		padding: 30px;
 		border-radius: 20px;
 		color: #551A8B;
 		font-size: 18px;
 		font-weight: bold;
+		max-width: 30%;
+	}
+
+	.title {
+
+		color: #00D1BB;
+		font-size: 20px;
+		font-weight: bold;
+
 	}
 
 	.main {

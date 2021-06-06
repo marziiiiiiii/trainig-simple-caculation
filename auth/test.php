@@ -37,7 +37,7 @@
 
 
 	if ($lvl == '1') {
-		echo "level 1 question : </br>";
+		echo "level 1 question (1 to 10) : </br>";
 		$id = rand(1, 8);
 		// random obj pic
 		$sql = "SELECT * FROM objpictures WHERE OPid = $id";
@@ -51,6 +51,18 @@
 			for ($i = 1; $i <= $answer; $i++) {
 				echo '<img class="fruite" src="data:image/jpeg;base64,' . base64_encode($row['objPic']) . '"/>';
 			}
+			$randomPos = rand(0, 3);
+			$option[$randomPos] = $answer;
+			for ($i = 0; $i < 4; $i++) {
+				if ($i == $randomPos) {
+					$i++;
+				}
+				$randNum = rand(1, 10);
+				while (in_array($randNum, $option)) {
+					$randNum = rand(1, 10);
+				}
+				$option[$i] = $randNum;
+			}
 		}
 	} else {
 		echo "you are not level 1 student ";
@@ -62,15 +74,15 @@
 	<br><br>
 	<div class='main'>
 		<div class='info'>how many fruits do you see?<br>
-			<br> <input type="radio" name="option" value="1">
-			<label>1</label><br>
-			<br> <input type="radio" name="option" value="2">
-			<label>2</label><br>
-			<br> <input type="radio" name="option" value="3">
-			<label>3</label><br>
-			<br> <input type="radio" name="option" value="4">
-			<label>4</label><br>
-			<br><input type="submit" class="btn" name="answer" value="submit">
+			<br> <input type="radio" name="option" value="<?php echo $option[0]; ?>" onclick="checkanswer(value, id)">
+			<label><?php echo $option[0]; ?></label><br>
+			<br> <input type="radio" name="option" value="<?php echo $option[1]; ?>">
+			<label><?php echo $option[1]; ?></label><br>
+			<br> <input type="radio" name="option" value="<?php echo $option[2]; ?>">
+			<label><?php echo $option[2]; ?></label><br>
+			<br> <input type="radio" name="option" value="<?php echo $option[3]; ?>">
+			<label><?php echo $option[3]; ?></label><br>
+			<!-- <br><input type="submit" class="btn" name="answer" value="submit"> -->
 
 		</div>
 

@@ -51,10 +51,14 @@
 			if ($user == $check_user && $pass == $check_pass) {
 				echo "Matches.";
 
+				// echo date_sub ( $row['lastAccess'] , STR_TO_DATE('15/01/2017 10:10:15','%d/%m/%Y %H:%i:%s') );
+				$lastAccess = $row['lastAccess'];
 
 				if ($as == "Sign In as Teacher") {
+					$sql = "UPDATE Teachers SET dailyAccess=0 WHERE DATE('" . $lastAccess . "') = DATE( DATE_SUB( NOW() , INTERVAL 1 DAY ) )";
 					$sql = "UPDATE Teachers SET lastAccess=now() WHERE user='" . $user . "'";
 				} else {
+					$sql = "UPDATE Students SET dailyAccess=0 WHERE DATE('" . $lastAccess . "') = DATE( DATE_SUB( NOW() , INTERVAL 1 DAY ) )";
 					$sql = "UPDATE Students SET lastAccess=now() WHERE user='" . $user . "'";
 				}
 

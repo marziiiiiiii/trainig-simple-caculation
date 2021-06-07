@@ -13,6 +13,12 @@
 	if (isset($_COOKIE["signedin"]) && $_COOKIE["signedin"] == '1') {
 		if ($_COOKIE["as"] == 'Sign In as Teacher') {
 			echo "<h1>teacher</h1>";
+			echo "<form action='list.php' method='POST'>
+				<br><input type='submit' class='btn' value='list of Students'>
+			</form>
+			<form action='Modify.php' method='POST'>
+				<br><input type='submit' class='btn' value='Modify Students'>
+			</form>";
 		} else {
 			echo "<div class='student-home'>
 			<h1>student</h1>

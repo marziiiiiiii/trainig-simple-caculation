@@ -47,7 +47,7 @@ if (isset($_COOKIE["signedin"]) && $_COOKIE["signedin"] == '1') {
 		height: 100px;
 		font-size: 30px;
 		direction: rtl;
-		margin-bottom: 50px;
+		/* margin-bottom: 50px; */
 
 	}
 

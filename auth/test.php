@@ -27,6 +27,15 @@
 		$wrongs = $row['wrongs'];
 		$lastAccess = $row['lastAccess'];
 	}
+	// ----------------------------------- check dailyCorrects : level up -----------------------------------
+	if ($dailyCorrects >= 10) {
+		$lvl = $lvl + 1;
+		$sql = "UPDATE Students SET lvl='" . $lvl . "' WHERE user='" . $user . "'";
+		$con->query($sql);
+		$sql = "UPDATE Students SET dailyAccess=0 WHERE user='" . $user . "'";
+		$con->query($sql);
+	}
+
 	// ----------------------------------- check answer -----------------------------------
 
 	if (isset($_POST['op'])) {
@@ -36,31 +45,29 @@
 			echo "<div class='res main'>bravo :) </div>";
 
 			// ------------------- add 1 correct to students db -------------------
-			$dailyCorrects = $dailyCorrects+1;
-			$corrects = $corrects+1;
+			$dailyCorrects = $dailyCorrects + 1;
+			$corrects = $corrects + 1;
 			$sql = "UPDATE Students SET dailyCorrects='" . $dailyCorrects . "' WHERE user='" . $user . "'";
 			$con->query($sql);
 			$sql = "UPDATE Students SET corrects='" . $corrects . "' WHERE user='" . $user . "'";
-
-			
 		} else {
 			echo "<div class='res main'>pay attention :( </div> ";
 
 			// ------------------- add 1 wrong to students db -------------------
-			$wrongs = $wrongs+1;
+			$wrongs = $wrongs + 1;
 			$sql = "UPDATE Students SET wrongs='" . $wrongs . "' WHERE user='" . $user . "'";
-
 		}
 		$con->query($sql);
 
-		echo "<div class='info main'> daily corrects : " . $dailyCorrects
-		. " <br/> total corrects : " . $corrects
-		. " <br/> total wrongs : " . $wrongs . "</div>";
-		echo "<div class='info main'><br/> last access : " . $lastAccess . "</div>";
-	} else {
+		} else {
 		echo "<div class='res main'>choose the answer </div>";
 	}
 
+	echo "<div class='info main'> daily corrects : " . $dailyCorrects
+			. " <br/> total corrects : " . $corrects
+			. " <br/> total wrongs : " . $wrongs . "</div>";
+		echo "<div class='info main'><br/> last access : " . $lastAccess . "</div>";
+	
 	// ----------------------------------- new question -----------------------------------
 
 	if ($lvl == '1') {
@@ -78,10 +85,10 @@
 		} else {
 
 			// ------------------- random number 1 to 10 -------------------
-
+			$objPic=$row['objPic'];
 			$answer = rand(1, 10);
 			for ($i = 1; $i <= $answer; $i++) {
-				echo '<img class="fruite" src="data:image/jpeg;base64,' . base64_encode($row['objPic']) . '"/>';
+				echo '<img class="fruite" src="data:image/jpeg;base64,' . base64_encode($objPic) . '"/>';
 			}
 
 			// ------------------- random position -------------------
@@ -99,14 +106,23 @@
 				$option[$i] = $randNum;
 			}
 			// ------------------- save question in db -------------------
-
-			// todo save question
+			// $sql = "INSERT INTO Questions (qustion,objPic,objsPic,oprand,anwser,lvl)
+			// VALUES ('', file_get_contents($objPic) , '', '',  '" . $answer . "', '1')";
+			// if (mysqli_query($con, $sql)) {
+			// 	echo "New q created successfully";
+			// } else {
+			// 	echo "Error: " . $sql . "<br>" . mysqli_error($con);
+			// }
 
 		}
 	} else {
 		echo "you are not level 1 student ";
 		echo $lvl;
 	}
+
+	$con->close();
+
+
 	?>
 
 	<!-- -----------------------------------------------------------------------------------HTML -->

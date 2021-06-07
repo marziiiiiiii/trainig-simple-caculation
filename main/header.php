@@ -10,27 +10,27 @@ if (isset($_COOKIE["signedin"]) && $_COOKIE["signedin"] == '1') {
 	echo "<div class='header'>
 	<a href='signout.php'>SignOut</a>
 	<h4>Welcome " . $_COOKIE["user"] . "</h4>
-	<a href='../auth/home.php'>Home</a>
+	<a href='../main/home.php'>Home</a>
 	</div>";
 } else {
-	if ($actual_link == '/PHP/training/auth/signin.php') {
+	if ($actual_link == '/PHP/training/main/signin.php') {
 		echo "<div class='header'>
-		<a class='current' href='../auth/signin.php'>SignIn</a> 
-		<a href='../auth/signup.php'>SignUp</a>
-		<a href='../auth/home.php'>Home</a>
+		<a class='current' href='../main/signin.php'>SignIn</a> 
+		<a href='../main/signup.php'>SignUp</a>
+		<a href='../main/home.php'>Home</a>
 		</div>";
-	} else if ($actual_link == '/PHP/training/auth/signup.php') {
+	} else if ($actual_link == '/PHP/training/main/signup.php') {
 		echo "<div class='header'>
-		<a href='../auth/signin.php'>SignIn</a> 
-		<a class='current' href='../auth/signup.php'>SignUp</a>
-		<a href='../auth/home.php'>Home</a>
+		<a href='../main/signin.php'>SignIn</a> 
+		<a class='current' href='../main/signup.php'>SignUp</a>
+		<a href='../main/home.php'>Home</a>
 		</div>";
 	} else {
 
 		echo "<div class='header'>
-		<a  href='../auth/signin.php'>SignIn</a> 
-		<a href='../auth/signup.php'>SignUp</a>
-		<a class='current' href='../auth/home.php'>Home</a>
+		<a  href='../main/signin.php'>SignIn</a> 
+		<a href='../main/signup.php'>SignUp</a>
+		<a class='current' href='../main/home.php'>Home</a>
 		</div>";
 	}
 }

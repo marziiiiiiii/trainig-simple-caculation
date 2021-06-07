@@ -20,13 +20,29 @@
 				<br><input type='submit' class='btn' value='Modify Students'>
 			</form>";
 		} else {
-			echo "<div class='student-home'>
-			<h1>student</h1>
-			<h2>level felan</h2>
-			<form action='test.php' method='POST'>
-				<br><input type='submit' class='btn' value='start test'>
-			</form>
-			</div>";
+
+			$con = mysqli_connect("localhost", "root", "", "training");
+			$user = $_COOKIE["user"];
+			$result = mysqli_query($con, "SELECT * FROM Students WHERE user = '" . $user . "' ");
+
+			$lvl = 1;
+			while ($row = mysqli_fetch_array($result)) {
+
+				$lvl = $row['lvl'];
+			}
+			if ($lvl < 3) {
+				echo "<div class='student-home'>
+				<h1>student</h1>
+				<h4>level " . $lvl . "</h4>
+				<form action='level" . $lvl . ".php' method='POST'>
+					<br><input type='submit' class='btn' value='start test'>
+				</form>
+				</div>";
+			}else{
+				echo "<div class='student-home'>
+				<h1>your level is undefined for this site</h1>
+				</div>";
+			}
 		}
 	} else {
 		echo "<h1>This is a place for kids who are new to math</h1>";
@@ -51,6 +67,9 @@
 	h1 {
 		color: #00D1BB;
 	}
+	h4 {
+		color: #551A8B;
+	}
 
 	.btn {
 		background-color: #00D1BB;
@@ -63,10 +82,9 @@
 		font-size: 23px;
 	}
 
-	.btn:hover{
+	.btn:hover {
 		background-color: #551A8B;
 	}
-
 </style>
 
 </html>

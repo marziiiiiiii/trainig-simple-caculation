@@ -2,7 +2,7 @@
 
 <head>
 
-	<title>test</title>
+	<title>level2</title>
 
 </head>
 
@@ -28,7 +28,7 @@
 		$lastAccess = $row['lastAccess'];
 	}
 	// ----------------------------------- check dailyCorrects : level up -----------------------------------
-	if ($dailyCorrects >= 10) {
+	if ($dailyCorrects >= 9) {
 		$lvl = $lvl + 1;
 		$sql = "UPDATE Students SET lvl='" . $lvl . "' WHERE user='" . $user . "'";
 		$con->query($sql);
@@ -58,19 +58,18 @@
 			$sql = "UPDATE Students SET wrongs='" . $wrongs . "' WHERE user='" . $user . "'";
 		}
 		$con->query($sql);
-
-		} else {
+	} else {
 		echo "<div class='res main'>choose the answer </div>";
 	}
 
 	echo "<div class='info main'> daily corrects : " . $dailyCorrects
-			. " <br/> total corrects : " . $corrects
-			. " <br/> total wrongs : " . $wrongs . "</div>";
-		echo "<div class='info main'><br/> last access : " . $lastAccess . "</div>";
-	
+		. " <br/> total corrects : " . $corrects
+		. " <br/> total wrongs : " . $wrongs . "</div>";
+	echo "<div class='info main'><br/> last access : " . $lastAccess . "</div>";
+
 	// ----------------------------------- new question -----------------------------------
 
-	if ($lvl == '1') {
+	if ($lvl < 3) {
 
 		// ------------------- random pic -------------------
 
@@ -85,7 +84,7 @@
 		} else {
 
 			// ------------------- random number 1 to 10 -------------------
-			$objPic=$row['objPic'];
+			$objPic = $row['objPic'];
 			$answer = rand(1, 10);
 			for ($i = 1; $i <= $answer; $i++) {
 				echo '<img class="fruite" src="data:image/jpeg;base64,' . base64_encode($objPic) . '"/>';
@@ -116,8 +115,7 @@
 
 		}
 	} else {
-		echo "you are not level 1 student ";
-		echo $lvl;
+		header('Location: home.php');
 	}
 
 	$con->close();
@@ -129,7 +127,7 @@
 	<br><br>
 	<div class='main'>
 		<div class='question'>how many fruits do you see?<br>
-			<form action="test.php" method="post">
+			<form action="level2.php" method="post">
 				<br> <input type="radio" name="op" value="<?php echo $option[0]; ?>" onclick="checkanswer(value, id)">
 				<label><?php echo $option[0]; ?></label><br>
 				<br> <input type="radio" name="op" value="<?php echo $option[1]; ?>">

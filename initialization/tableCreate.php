@@ -44,14 +44,27 @@ if (!$con) {
 
 //---------------------------------------------
 
-$sql = "CREATE TABLE objPictures
+// $sql = "CREATE TABLE objPictures
+// (
+// OPid int NOT NULL AUTO_INCREMENT , 
+// PRIMARY KEY(OPid),
+// objPic BLOB 
+// )";
+
+////bayad dar phpmyadmin be soorat dasti 8 ax ro insert kard
+////ax ha dar folder "picture for insert in db"
+
+//---------------------------------------------
+
+
+$sql = "CREATE TABLE objsPictures
 (
-OPid int NOT NULL AUTO_INCREMENT , 
-PRIMARY KEY(OPid),
-objPic BLOB 
+OsPid int NOT NULL AUTO_INCREMENT , 
+PRIMARY KEY(OsPid),
+objsPic BLOB 
 )";
 
-////bayad dar phpmyadmin be soorat dasti ax haro insert kard
+////bayad dar phpmyadmin be soorat dasti 3 ax ro insert kard
 ////ax ha dar folder "picture for insert in db"
 
 //---------------------------------------------

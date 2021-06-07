@@ -69,7 +69,7 @@
 
 	// ----------------------------------- new question -----------------------------------
 
-	if ($lvl < 3) {
+	if ($lvl == 2) {
 
 		// ------------------- random pic -------------------
 
@@ -85,11 +85,29 @@
 
 			// ------------------- random number 1 to 10 -------------------
 			$objPic = $row['objPic'];
-			$answer = rand(1, 10);
-			for ($i = 1; $i <= $answer; $i++) {
+			$answer1 = rand(1, 10);
+			for ($i = 1; $i <= $answer1; $i++) {
 				echo '<img class="fruite" src="data:image/jpeg;base64,' . base64_encode($objPic) . '"/>';
 			}
+			// ------------------- random pic -------------------
 
+			$id = rand(1, 3);
+			$sql = "SELECT * FROM objspictures WHERE OsPid = $id";
+			$result = $con->query($sql);
+			$row = mysqli_fetch_array($result);
+			if (!$row) {
+				printf("Error: %s\n", mysqli_error($con));
+				exit();
+			} else {
+
+				// ------------------- random number 1 to 100 -------------------
+				$objsPic = $row['objsPic'];
+				$answer2 = rand(1, 9);
+				for ($i = 1; $i <= $answer2; $i++) {
+					echo '<img class="fruite" src="data:image/jpeg;base64,' . base64_encode($objsPic) . '"/>';
+				}
+			}
+			$answer = $answer1 + ($answer2 *10);
 			// ------------------- random position -------------------
 
 			$randomPos = rand(0, 3);
@@ -98,23 +116,18 @@
 				if ($i == $randomPos) {
 					$i++;
 				}
-				$randNum = rand(1, 10);
+				$randNum = rand(1, 100);
 				while (in_array($randNum, $option)) {
-					$randNum = rand(1, 10);
+					$randNum = rand(1, 100);
 				}
 				$option[$i] = $randNum;
 			}
-			// ------------------- save question in db -------------------
-			// $sql = "INSERT INTO Questions (qustion,objPic,objsPic,oprand,anwser,lvl)
-			// VALUES ('', file_get_contents($objPic) , '', '',  '" . $answer . "', '1')";
-			// if (mysqli_query($con, $sql)) {
-			// 	echo "New q created successfully";
-			// } else {
-			// 	echo "Error: " . $sql . "<br>" . mysqli_error($con);
-			// }
-
 		}
-	} else {
+	}
+	// else if ($lvl == 3) {
+	// 	header('Location: level3.php');
+	// } 
+	else {
 		header('Location: home.php');
 	}
 
@@ -136,7 +149,7 @@
 				<label><?php echo $option[2]; ?></label><br>
 				<br> <input type="radio" name="op" value="<?php echo $option[3]; ?>">
 				<label><?php echo $option[3]; ?></label><br>
-				<br><span class="nxt">next </span> <input type="submit" class="btn" name="hiddenAnswer" value="<?php echo $option[$randomPos]; ?>">
+				<br> <input type="submit" class="btn" name="hiddenAnswer" value="<?php echo $option[$randomPos]; ?>">
 			</form>
 		</div>
 
@@ -146,19 +159,23 @@
 <!-- -----------------------------------------------------------------------------------CSS -->
 <style>
 	.btn {
-		background-color: #00D1BB;
+		background-color: white;
 		color: #00D1BB;
 		border: none;
-		border-radius: 0px 90px 90px 0px;
+		/* border-radius: 0px 90px 90px 0px; */
+		width: 0;
+      height: 0;
+      border-top: 30px solid transparent;
+      border-left: 30px solid #00D1BB;
+      border-bottom: 30px solid transparent;
 		cursor: pointer;
 		font-weight: bolder;
 		font-size: 17px;
-		width: 35px;
-		height: 48px;
 	}
 
 	.btn:hover {
-		background-color: #551A8B;
+		border-left: 30px solid #551A8B;
+
 		color: #551A8B;
 	}
 
@@ -180,13 +197,6 @@
 		font-size: 17px;
 	}
 
-	.nxt {
-		border-radius: 90px 0px 0px 90px;
-		border: solid 3px #00D1BB;
-		width: 25px;
-		padding: 9px;
-		height: 50px;
-	}
 
 	.question {
 		border: solid 9px #00D1BB;

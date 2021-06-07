@@ -62,14 +62,16 @@
 		echo "<div class='res main'>choose the answer </div>";
 	}
 
-	echo "<div class='info main'> daily corrects : " . $dailyCorrects
+	echo "<div class='info main'> 
+		level : " . $lvl
+		."<br/>daily corrects : " . $dailyCorrects
 		. " <br/> total corrects : " . $corrects
 		. " <br/> total wrongs : " . $wrongs . "</div>";
 	echo "<div class='info main'><br/> last access : " . $lastAccess . "</div>";
 
 	// ----------------------------------- new question -----------------------------------
 
-	if ($lvl = 1) {
+	if ($lvl == 1) {
 
 		// ------------------- random pic -------------------
 
@@ -114,11 +116,13 @@
 			// }
 
 		}
-	} else if ($lvl = 2) {
+	} else if ($lvl == 2) {
 		header('Location: level2.php');
-	} else if ($lvl = 3) {
-		header('Location: level3.php');
-	} else {
+	} 
+	// else if ($lvl == 3) {
+	// 	header('Location: level3.php');
+	// } 
+	else {
 		header('Location: home.php');
 	}
 
@@ -140,7 +144,7 @@
 				<label><?php echo $option[2]; ?></label><br>
 				<br> <input type="radio" name="op" value="<?php echo $option[3]; ?>">
 				<label><?php echo $option[3]; ?></label><br>
-				<br><span class="nxt">next </span> <input type="submit" class="btn" name="hiddenAnswer" value="<?php echo $option[$randomPos]; ?>">
+				<br> <input type="submit" class="btn" name="hiddenAnswer" value="<?php echo $option[$randomPos]; ?>">
 			</form>
 		</div>
 
@@ -150,19 +154,23 @@
 <!-- -----------------------------------------------------------------------------------CSS -->
 <style>
 	.btn {
-		background-color: #00D1BB;
+		background-color: white;
 		color: #00D1BB;
 		border: none;
-		border-radius: 0px 90px 90px 0px;
+		/* border-radius: 0px 90px 90px 0px; */
+		width: 0;
+      height: 0;
+      border-top: 30px solid transparent;
+      border-left: 30px solid #00D1BB;
+      border-bottom: 30px solid transparent;
 		cursor: pointer;
 		font-weight: bolder;
 		font-size: 17px;
-		width: 35px;
-		height: 48px;
 	}
 
 	.btn:hover {
-		background-color: #551A8B;
+		border-left: 30px solid #551A8B;
+
 		color: #551A8B;
 	}
 
@@ -184,13 +192,6 @@
 		font-size: 17px;
 	}
 
-	.nxt {
-		border-radius: 90px 0px 0px 90px;
-		border: solid 3px #00D1BB;
-		width: 25px;
-		padding: 9px;
-		height: 50px;
-	}
 
 	.question {
 		border: solid 9px #00D1BB;

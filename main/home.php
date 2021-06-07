@@ -41,6 +41,7 @@
 			}else{
 				echo "<div class='student-home'>
 				<h1>your level is undefined for this site</h1>
+				<h4>level " . $lvl . "</h4>
 				</div>";
 			}
 		}
